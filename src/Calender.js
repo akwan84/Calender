@@ -1,17 +1,19 @@
 import Event from './Event'
 
-const Calender = ({ events }) => {
+const Calender = ({ events, setDisplayingEvent, clickedEvent, setClickedEvent}) => {
     return (
-        <ul>
-            {events.map((event) => (
-                <Event
-                    key = {event.id}
-                    name = {event.name}
-                    startTime = {event.startTime}
-                    endTime = {event.endTime}                   
-                />
-            ))}
-        </ul>
+        events.map((event) => (
+            <Event
+                key = {event.id}
+                name = {event.name}
+                startTime = {event.startTime}
+                endTime = {event.endTime}
+                information = {event.information}
+                setDisplayingEvent = {setDisplayingEvent}
+                clickedEvent = {clickedEvent}
+                setClickedEvent = {setClickedEvent}
+            />
+        ))
     )
 }
 
