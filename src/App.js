@@ -7,8 +7,7 @@ import Days from './Days';
 
 /*
 TODO:
-- Display event information when clicked
-- Make events deletable
+- Make events deletable (add a verification notice)
 - Make events editable
 - Display month of the corresponding week
 - Modify the way events display when too widget is too thin
@@ -121,6 +120,18 @@ function App() {
         return newName && newStart && newEnd;
     }
 
+    const handleDelete = () => {
+        const newEvents = [];
+        for(let i = 0; i < events.length; i++){
+            if(events[i].id !== clickedEvent.id){
+                console.log(events[i]);
+                newEvents.push(events[i]);
+            }
+        }
+        setEvents(newEvents);
+        setDisplayingEvent(false);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -161,6 +172,7 @@ function App() {
                 <EventInfo
                     setDisplayingEvent = {setDisplayingEvent}
                     clickedEvent = {clickedEvent}
+                    handleDelete = {handleDelete}
                 />
             ) : (displayingAddEvent)? (
                 <AddEvent

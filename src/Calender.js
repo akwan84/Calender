@@ -5,6 +5,7 @@ const Calender = ({ events, setDisplayingEvent, clickedEvent, setClickedEvent}) 
         events.map((event) => (
             <Event
                 key = {event.id}
+                id = {event.id}
                 name = {event.name}
                 startTime = {event.startTime}
                 endTime = {event.endTime}

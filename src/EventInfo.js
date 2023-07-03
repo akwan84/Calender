@@ -2,7 +2,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const EventInfo = ({ setDisplayingEvent, clickedEvent }) => {
+const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete }) => {
     const formatTime = (date) => {
         const formatMinutes = () => {
             if(date.getMinutes() < 10){
@@ -44,6 +44,8 @@ const EventInfo = ({ setDisplayingEvent, clickedEvent }) => {
                     <h2>Information</h2>
                     <p>{clickedEvent.information}</p>
                 </div>
+                <button onClick = {() => handleDelete()} style = {{width: "40%", height: "5vh", position: "absolute", left: "5%", top: "60vh", backgroundColor: "red", borderRadius: "15px", color: "white", fontSize: "2vh"}}>Delete Event</button>
+                <button style = {{width: "40%", height: "5vh", position: "absolute", left: "55%", top: "60vh", backgroundColor: "red", borderRadius: "15px", color: "white", color: "white", fontSize: "2vh"}}>Edit Event</button>
             </div>
         </div>
     )

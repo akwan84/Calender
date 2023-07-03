@@ -1,4 +1,4 @@
-const Event = ({ name, startTime, endTime, information, setDisplayingEvent, clickedEvent, setClickedEvent}) => {
+const Event = ({ id, name, startTime, endTime, information, setDisplayingEvent, clickedEvent, setClickedEvent}) => {
     const getVerticalPosition = () => {
         const minutes = ((startTime.getHours() * 60) + startTime.getMinutes());
         const res = ((minutes / 1440) * 80) + 10.5;
@@ -22,6 +22,7 @@ const Event = ({ name, startTime, endTime, information, setDisplayingEvent, clic
     const handleClick = () => {
         setDisplayingEvent(true);
         setClickedEvent({
+            id: id,
             name: name,
             startTime: startTime,
             endTime: endTime,
@@ -40,7 +41,7 @@ const Event = ({ name, startTime, endTime, information, setDisplayingEvent, clic
             width: "12%",
             borderRadius: "10px",
             border: "1px solid",
-            boxShadow: "0px 0px 5px black",
+            boxShadow: "0px 0px 3px black",
             textAlign: "center"
             }}
             onClick={() => handleClick()}
