@@ -4,19 +4,16 @@ import AddEvent from './AddEvent';
 import EventInfo from './EventInfo';
 import Grid from './Grid';
 import Days from './Days';
-import ErrorMessage from './ErrorMessage';
 
 /*
 TODO:
-- Create component for event creation
-    - Add error message components
 - Display event information when clicked
 - Make events deletable
 - Make events editable
 - Display month of the corresponding week
 - Modify the way events display when too widget is too thin
 - Use local storage to store events
-- Styling
+- Styling, and move CSS into CSS files
 */
 
 function App() {
@@ -46,7 +43,7 @@ function App() {
 
     const getWeekStart = () => {
         let date = new Date();
-        while(date.getDay() != 0){
+        while(date.getDay() !== 0){
             date.setDate(date.getDate() - 1);
         }
         return date;

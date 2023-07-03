@@ -24,11 +24,11 @@ const AddEvent = ({
     return(
         <div>
             <div>
-                <div style = {{width: "100%", height: "100vh", backgroundColor:"white"}} onClick = {() => closeWindow()}> </div>        
+                <div style = {{width: "100%", height: "100vh", backgroundColor:"white"}} onClick = {() => closeWindow()}> </div>
                 <div style = {{position:"absolute", left: "25%", top:"10vh", width: "50%", height: "80vh", backgroundColor: "#30b1fc", borderRadius: "30px", boxShadow: "0px 0px 5px black",}}>
-                    <button style = {{position: "absolute", left: "30px", top: "30px"}} onClick = {() => closeWindow()}>
+                    <div style = {{position: "absolute", left: "95%", top: "4%", color: "red", borderColor: "3px solid"}} onClick = {() => closeWindow()}>
                         <AiOutlineClose/>    
-                    </button>
+                    </div>
                     <div style = {{position: "absolute", left: "30px", top: "60px", color: "white", width: "95%"}}>
                         <form className='addForm' onSubmit = {(e) => handleSubmit(e)}>
                             <h2>Event Name</h2>

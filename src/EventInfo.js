@@ -11,11 +11,11 @@ const EventInfo = ({ setDisplayingEvent, clickedEvent }) => {
             return `${date.getMinutes()}`
         }
 
-        if(date.getHours() == 0){
+        if(date.getHours() === 0){
             return `12:${formatMinutes()} AM`;
         }
 
-        if(date.getHours() == 12){
+        if(date.getHours() === 12){
             return `12:${formatMinutes()} PM`;
         }
 
@@ -30,9 +30,9 @@ const EventInfo = ({ setDisplayingEvent, clickedEvent }) => {
         <div>
             <div style = {{width: "100%", height: "100vh", backgroundColor:"white"}} onClick = {() => setDisplayingEvent(false)}> </div>        
             <div style = {{position:"absolute", left: "25%", top:"10vh", width: "50%", height: "80vh", backgroundColor: "#30b1fc", borderRadius: "30px", boxShadow: "0px 0px 10px black",}}>
-                <button style = {{position: "absolute", left: "30px", top: "30px"}} onClick = {() => setDisplayingEvent(false)}>
+                <div style = {{position: "absolute", left: "95%", top: "4%", color: "red", borderColor: "3px solid"}} onClick = {() => setDisplayingEvent(false)}>
                     <AiOutlineClose/>    
-                </button>
+                </div>
                 <div style = {{position: "absolute", top: "4vh", left: "5%", color:"white"}}>
                     <h1>{clickedEvent.name}</h1>
                     <h2>Date</h2>
