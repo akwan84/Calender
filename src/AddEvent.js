@@ -1,12 +1,32 @@
 import { AiOutlineClose } from 'react-icons/ai';
+import ErrorMessage from './ErrorMessage';
 
-const AddEvent = ({newName, setNewName, newStart, setNewStart, newEnd, setNewEnd, newInformation, setNewInformation, handleSubmit, setDisplayingAddEvent}) => {
+const AddEvent = ({
+    newName, 
+    setNewName, 
+    newStart, 
+    setNewStart, 
+    newEnd, 
+    setNewEnd, 
+    newInformation, 
+    setNewInformation, 
+    handleSubmit, 
+    setDisplayingAddEvent, 
+    displayingError, 
+    setDisplayingError,
+    errorMessage
+}) => {
+    const closeWindow = () => {
+        setDisplayingAddEvent(false);
+        setDisplayingError(false);
+    }
+
     return(
         <div>
             <div>
-                <div style = {{width: "100%", height: "100vh", backgroundColor:"white"}} onClick = {() => setDisplayingAddEvent(false)}> </div>        
+                <div style = {{width: "100%", height: "100vh", backgroundColor:"white"}} onClick = {() => closeWindow()}> </div>        
                 <div style = {{position:"absolute", left: "25%", top:"10vh", width: "50%", height: "80vh", backgroundColor: "#30b1fc", borderRadius: "30px", boxShadow: "0px 0px 5px black",}}>
-                    <button style = {{position: "absolute", left: "30px", top: "30px"}} onClick = {() => setDisplayingAddEvent(false)}>
+                    <button style = {{position: "absolute", left: "30px", top: "30px"}} onClick = {() => closeWindow()}>
                         <AiOutlineClose/>    
                     </button>
                     <div style = {{position: "absolute", left: "30px", top: "60px", color: "white", width: "95%"}}>
@@ -44,13 +64,22 @@ const AddEvent = ({newName, setNewName, newStart, setNewStart, newEnd, setNewEnd
                                 id = 'information'
                                 value = {newInformation}
                                 onChange = {(e) => setNewInformation(e.target.value)}
-                                style = {{resize: "none", width: "97%", height: "20vh"}}
+                                style = {{resize: "none", width: "97%", height: "15vh"}}
                             />
                             <br/>
                             <br/>
-                            <button type = 'submit' style = {{width: "30%", height: "5vh", position: "absolute", left: "35%"}}>Add Event</button>
+                            <button type = 'submit' style = {{width: "30%", height: "5vh", position: "absolute", left: "35%", fontSize: "3vh"}}>Add Event</button>
                         </form>
                     </div>
+                    {
+                        (displayingError ? (
+                            <ErrorMessage
+                                message = {errorMessage}
+                            />
+                        ): (
+                            <div></div>
+                        ))
+                    }
                 </div>
             </div>
         </div>

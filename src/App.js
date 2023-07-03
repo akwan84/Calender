@@ -59,6 +59,8 @@ function App() {
     const [isBadTime, setIsBadTime] = useState(false);
     const [displayingEvent, setDisplayingEvent] = useState(false);
     const [displayingAddEvent, setDisplayingAddEvent] = useState(false);
+    const [displayingError, setDisplayingError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [clickedEvent, setClickedEvent] = useState({});
     const [weekStart, setWeekStart] = useState(getWeekStart());
 
@@ -118,11 +120,28 @@ function App() {
         return true;
     }
 
+    const allFieldsFilled = () => {
+        return newName && newStart && newEnd;
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(!newName || !newStart || !newEnd || !validTime() || isOverlapping()){
-            //setIsBadTime(true);
+        if(allFieldsFilled() && !validTime()){
+            setErrorMessage("Your event can not end before it starts");
+            setDisplayingError(true);
+            return;
+        }
+
+        if(allFieldsFilled() && isOverlapping()){
+            setErrorMessage("This event overlaps with another");
+            setDisplayingError(true);
+            return;
+        }
+
+        if(!allFieldsFilled()){
+            setErrorMessage("Please fill all fields");
+            setDisplayingError(true);
             return;
         } 
 
@@ -158,6 +177,9 @@ function App() {
                     setNewInformation = {setNewInformation}
                     handleSubmit = {handleSubmit}
                     setDisplayingAddEvent= {setDisplayingAddEvent}
+                    displayingError = {displayingError}
+                    setDisplayingError = {setDisplayingError}
+                    errorMessage = {errorMessage}
                 />
             ) : (
                 <div>
