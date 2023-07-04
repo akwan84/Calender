@@ -52,10 +52,13 @@ function App() {
     const [newStart, setNewStart] = useState('');
     const [newEnd, setNewEnd] = useState('');
     const [newInformation, setNewInformation] = useState('');
+
     const [isBadTime, setIsBadTime] = useState(false);
     const [displayingEvent, setDisplayingEvent] = useState(false);
     const [displayingAddEvent, setDisplayingAddEvent] = useState(false);
     const [displayingError, setDisplayingError] = useState(false);
+    const [displayDeleteVerification, setDisplayDeleteVerification] = useState(false);
+
     const [errorMessage, setErrorMessage] = useState('');
     const [clickedEvent, setClickedEvent] = useState({});
     const [weekStart, setWeekStart] = useState(getWeekStart());
@@ -173,6 +176,8 @@ function App() {
                     setDisplayingEvent = {setDisplayingEvent}
                     clickedEvent = {clickedEvent}
                     handleDelete = {handleDelete}
+                    displayDeleteVerification = {displayDeleteVerification}
+                    setDisplayDeleteVerification = {setDisplayDeleteVerification}
                 />
             ) : (displayingAddEvent)? (
                 <AddEvent

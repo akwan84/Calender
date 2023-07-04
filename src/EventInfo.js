@@ -1,8 +1,10 @@
 import { AiOutlineClose } from 'react-icons/ai';
+import DeleteVerification from './DeleteVerification';
+
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete }) => {
+const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete, displayDeleteVerification, setDisplayDeleteVerification }) => {
     const formatTime = (date) => {
         const formatMinutes = () => {
             if(date.getMinutes() < 10){
@@ -26,11 +28,16 @@ const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete }) => {
         return `${date.getHours()}:${formatMinutes()} AM`;
     }
 
+    const closeWindow = () => {
+        setDisplayingEvent(false);
+        setDisplayDeleteVerification(false);
+    }
+
     return (
         <div>
-            <div style = {{width: "100%", height: "100vh", backgroundColor:"white"}} onClick = {() => setDisplayingEvent(false)}> </div>        
+            <div style = {{width: "100%", height: "100vh", backgroundColor:"white"}} onClick = {() => closeWindow()}> </div>        
             <div style = {{position:"absolute", left: "25%", top:"10vh", width: "50%", height: "80vh", backgroundColor: "#30b1fc", borderRadius: "30px", boxShadow: "0px 0px 10px black",}}>
-                <div style = {{position: "absolute", left: "95%", top: "4%", color: "red", borderColor: "3px solid"}} onClick = {() => setDisplayingEvent(false)}>
+                <div style = {{position: "absolute", left: "95%", top: "4%", color: "red", borderColor: "3px solid"}} onClick = {() => closeWindow()}>
                     <AiOutlineClose/>    
                 </div>
                 <div style = {{position: "absolute", top: "4vh", left: "5%", color:"white"}}>
@@ -44,8 +51,16 @@ const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete }) => {
                     <h2>Information</h2>
                     <p>{clickedEvent.information}</p>
                 </div>
-                <button onClick = {() => handleDelete()} style = {{width: "40%", height: "5vh", position: "absolute", left: "5%", top: "60vh", backgroundColor: "red", borderRadius: "15px", color: "white", fontSize: "2vh"}}>Delete Event</button>
+                <button onClick = {() => setDisplayDeleteVerification(true)} style = {{width: "40%", height: "5vh", position: "absolute", left: "5%", top: "60vh", backgroundColor: "red", borderRadius: "15px", color: "white", fontSize: "2vh"}}>Delete Event</button>
                 <button style = {{width: "40%", height: "5vh", position: "absolute", left: "55%", top: "60vh", backgroundColor: "red", borderRadius: "15px", color: "white", color: "white", fontSize: "2vh"}}>Edit Event</button>
+                {(displayDeleteVerification) ? (
+                    <DeleteVerification
+                        handleDelete = {handleDelete}
+                        setDisplayDeleteVerification = {setDisplayDeleteVerification}
+                    />
+                ) : (
+                    <div></div>
+                )}
             </div>
         </div>
     )
