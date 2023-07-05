@@ -12,3 +12,143 @@ code {
     monospace;
 }
 
+.event-input {
+  width: 97%;
+  height: 3vh;
+  font-size: 2.5vh;
+}
+
+.exit-button {
+  position: absolute;
+  left: 95%;
+  top: 4%; 
+  color: red; 
+  border-color: 3px solid;
+}
+
+.widget-inner {
+  position:absolute; 
+  left: 25%; 
+  top: 10vh; 
+  width: 50%; 
+  height: 80vh; 
+  background-color: #30b1fc;
+  border-radius: 30px;
+  box-shadow: 0px 0px 5px black;
+}
+
+.widget-outer {
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+}
+
+#form-contents {
+  position: absolute; 
+  left: 30px;
+  top: 60px;
+  color: white; 
+  width: 95%;
+}
+
+#information {
+  resize: none; 
+  width: 97%;
+  height: 15vh;
+}
+
+#form-submit-button {
+  width: 30%;
+  height: 5vh;
+  position: absolute;
+  left: 35%; 
+  font-size: 3vh;
+}
+
+.week-day {
+  width: 12.5%; 
+  height: 3.33vh;
+  font-size: 1.4vh;  
+  position: absolute; 
+  top: 6.66vh; 
+  text-align: center;
+}
+
+#delete-verification-box {
+  width: 90%;
+  height: 10vh; 
+  background-color: red;
+  position: absolute; 
+  top: 67vh; 
+  left: 5%; 
+  border-radius: 15px; 
+  box-shadow: 0px 0px 3px black;
+}
+
+.delete-verification-button {
+  position: absolute; 
+  width: 46%; 
+  height: 3.5vh; 
+  background-color: white; 
+  border-radius: 10px;
+}
+
+#delete-verification-contents {
+  position: absolute; 
+  left: 2%; 
+  width: 100%; 
+  color: white;
+}
+
+#error-message-box {
+  width: 80%; 
+  height: 8vh; 
+  background-color: #ed5247; 
+  position: absolute; 
+  top: 70vh; 
+  left: 10%; 
+  border-radius: 10px; 
+  box-shadow: 0px 0px 3px black; 
+  color: white;
+}
+
+#error-message-content {
+  font-size: 3vh; 
+  margin-top: 2.5vh; 
+  text-align: center;
+}
+
+.event {
+  position: absolute; 
+  color: white; 
+  background-color: #30b1fc;
+  width: 12%;
+  border-radius: 10px;
+  border: 1px solid;
+  box-shadow: 0px 0px 3px black;
+  text-align: center;
+}
+
+#event-info-contents {
+  position: absolute; 
+  top: 4vh; 
+  left: 5%; 
+  color: white;
+}
+
+.event-info-button {
+  width: 40%; 
+  height: 5vh; 
+  position: absolute;
+  top: 60vh; 
+  background-color: red; 
+  border-radius: 15px; 
+  color: white; 
+  font-size: 2vh;
+}
+
+.grid-cell {
+  width: 12.5%; 
+  height: 3.33vh; 
+  position: absolute; 
+}

@@ -24,12 +24,12 @@ const AddEvent = ({
     return(
         <div>
             <div>
-                <div style = {{width: "100%", height: "100vh", backgroundColor:"white"}} onClick = {() => closeWindow()}> </div>
-                <div style = {{position:"absolute", left: "25%", top:"10vh", width: "50%", height: "80vh", backgroundColor: "#30b1fc", borderRadius: "30px", boxShadow: "0px 0px 5px black",}}>
-                    <div style = {{position: "absolute", left: "95%", top: "4%", color: "red", borderColor: "3px solid"}} onClick = {() => closeWindow()}>
+                <div className='widget-outer' onClick = {() => closeWindow()}> </div>
+                <div className='widget-inner'>
+                    <div className='exit-button' onClick = {() => closeWindow()}>
                         <AiOutlineClose/>    
                     </div>
-                    <div style = {{position: "absolute", left: "30px", top: "60px", color: "white", width: "95%"}}>
+                    <div id='form-contents'>
                         <form className='addForm' onSubmit = {(e) => handleSubmit(e)}>
                             <h2>Event Name</h2>
                             <input
@@ -38,7 +38,7 @@ const AddEvent = ({
                                 placeholder = 'Event Name'
                                 value = {newName}
                                 onChange = {(e) => setNewName(e.target.value)}
-                                style = {{width: "97%", height: "3vh", fontSize: "2.5vh"}}
+                                className='event-input'
                             />
                             <br/>
                             <h2>Event Start</h2>
@@ -47,7 +47,7 @@ const AddEvent = ({
                                 type = 'datetime-local'
                                 value = {newStart}
                                 onChange = {(e) => setNewStart(e.target.value)}
-                                style = {{width: "97%", height: "3vh", fontSize: "2.5vh"}}
+                                className='event-input'
                             />
                             <br/>
                             <h2>Event End</h2>
@@ -56,7 +56,7 @@ const AddEvent = ({
                                 type = 'datetime-local'
                                 value = {newEnd}
                                 onChange = {(e) => setNewEnd(e.target.value)}
-                                style = {{width: "97%", height: "3vh", fontSize: "2.5vh"}}
+                                className='event-input'
                             />
                             <br/>
                             <h2> Information </h2>
@@ -64,11 +64,10 @@ const AddEvent = ({
                                 id = 'information'
                                 value = {newInformation}
                                 onChange = {(e) => setNewInformation(e.target.value)}
-                                style = {{resize: "none", width: "97%", height: "15vh"}}
                             />
                             <br/>
                             <br/>
-                            <button type = 'submit' style = {{width: "30%", height: "5vh", position: "absolute", left: "35%", fontSize: "3vh"}}>Add Event</button>
+                            <button type = 'submit' id='form-submit-button'>Add Event</button>
                         </form>
                     </div>
                     {

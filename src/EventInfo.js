@@ -35,12 +35,12 @@ const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete, displayDel
 
     return (
         <div>
-            <div style = {{width: "100%", height: "100vh", backgroundColor:"white"}} onClick = {() => closeWindow()}> </div>        
-            <div style = {{position:"absolute", left: "25%", top:"10vh", width: "50%", height: "80vh", backgroundColor: "#30b1fc", borderRadius: "30px", boxShadow: "0px 0px 10px black",}}>
-                <div style = {{position: "absolute", left: "95%", top: "4%", color: "red", borderColor: "3px solid"}} onClick = {() => closeWindow()}>
+            <div className = "widget-outer" onClick = {() => closeWindow()}> </div>        
+            <div className = "widget-inner">
+                <div className = "exit-button" onClick = {() => closeWindow()}>
                     <AiOutlineClose/>    
                 </div>
-                <div style = {{position: "absolute", top: "4vh", left: "5%", color:"white"}}>
+                <div id='event-info-contents'>
                     <h1>{clickedEvent.name}</h1>
                     <h2>Date</h2>
                     <p>{`${days[clickedEvent.startTime.getDay()]}, ${months[clickedEvent.startTime.getMonth()]} ${clickedEvent.startTime.getDate()}, ${clickedEvent.startTime.getFullYear()}`}</p>
@@ -51,8 +51,8 @@ const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete, displayDel
                     <h2>Information</h2>
                     <p>{clickedEvent.information}</p>
                 </div>
-                <button onClick = {() => setDisplayDeleteVerification(true)} style = {{width: "40%", height: "5vh", position: "absolute", left: "5%", top: "60vh", backgroundColor: "red", borderRadius: "15px", color: "white", fontSize: "2vh"}}>Delete Event</button>
-                <button style = {{width: "40%", height: "5vh", position: "absolute", left: "55%", top: "60vh", backgroundColor: "red", borderRadius: "15px", color: "white", color: "white", fontSize: "2vh"}}>Edit Event</button>
+                <button onClick = {() => setDisplayDeleteVerification(true)} style = {{left: "5%"}} className='event-info-button'>Delete Event</button>
+                <button style = {{left: "55%"}} className='event-info-button'>Edit Event</button>
                 {(displayDeleteVerification) ? (
                     <DeleteVerification
                         handleDelete = {handleDelete}

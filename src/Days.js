@@ -4,17 +4,7 @@ const Days = ({ weekStart }) => {
     const res = [];
     for(let i = 0; i < 7; i++){
         res.push(
-            <div style = {{
-                width: "12.5%", 
-                height: "3.33vh",
-                fontSize: "1.4vh",  
-                position: "absolute", 
-                top: "6.66vh", 
-                left: `${12.5 * (1 + i)}%`,
-                textAlign: "center",
-                key: {i}
-            }}
-            >
+            <div style = {{left: `${12.5 * (1 + i)}%`, key: {i}}} className="week-day">
                 {date.getDate()} <br/> {daysOfWeek[i]}
             </div>
         );

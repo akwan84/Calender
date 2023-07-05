@@ -31,21 +31,7 @@ const Event = ({ id, name, startTime, endTime, information, setDisplayingEvent, 
     }
 
     return (
-        <div style = {{
-            position:"absolute", 
-            top: getVerticalPosition(), 
-            left: getHorizontalPosition(),
-            height: getSize(), 
-            color: "white", 
-            backgroundColor: "#30b1fc",
-            width: "12%",
-            borderRadius: "10px",
-            border: "1px solid",
-            boxShadow: "0px 0px 3px black",
-            textAlign: "center"
-            }}
-            onClick={() => handleClick()}
-        >
+        <div className = "event" style = {{top: getVerticalPosition(), left: getHorizontalPosition(), height: getSize()}} onClick={() => handleClick()}>
             {`${name}`}            
         </div>
     )

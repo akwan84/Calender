@@ -7,7 +7,6 @@ import Days from './Days';
 
 /*
 TODO:
-- Make events deletable (add a verification notice)
 - Make events editable
 - Display month of the corresponding week
 - Modify the way events display when too widget is too thin

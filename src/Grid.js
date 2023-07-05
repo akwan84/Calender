@@ -19,29 +19,27 @@ const Grid = () => {
                 if(j !== 0){
                     elements.push(
                         <div style = {{
-                            width: "12.5%", 
-                            height: "3.33vh", 
-                            border: "1px solid", 
-                            position: "absolute", 
-                            top: getVerticalPos(i), 
-                            left: getHorizontalPos(j), 
-                            color: "lightgray"}}
+                                top: getVerticalPos(i), 
+                                left: getHorizontalPos(j), 
+                                color: "lightgray",
+                                border: "1px solid" 
+                            }}
                             key = {key++}
+                            className = "grid-cell"
                         >
 
                         </div>);
                 }else{
                     elements.push(
                         <div style = {{
-                            width: "12.5%", 
-                            height: "3.33vh", 
-                            position: "absolute", 
-                            top: getVerticalPos(i), 
-                            left: getHorizontalPos(j), 
-                            textAlign:"right", 
-                            marginTop: "2.5vh", 
-                            fontSize: "1.2vh"}}
+                                top: getVerticalPos(i), 
+                                left: getHorizontalPos(j), 
+                                textAlign:"right", 
+                                marginTop: "2.5vh", 
+                                fontSize: "1.2vh"
+                            }}
                             key = {key++}
+                            className="grid-cell"
                         >
                             {times[i]}
                         </div>
