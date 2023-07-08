@@ -4,14 +4,16 @@ import AddEvent from './AddEvent';
 import EventInfo from './EventInfo';
 import Grid from './Grid';
 import Days from './Days';
+import EditEvent from './EditEvent';
 
 /*
 TODO:
 - Make events editable
+    - Set default start and end times properly
+- Reposition and style the last week, next week, and add event buttons
 - Display month of the corresponding week
 - Modify the way events display when too widget is too thin
 - Use local storage to store events
-- Styling, and move CSS into CSS files
 */
 
 function App() {
@@ -52,11 +54,11 @@ function App() {
     const [newEnd, setNewEnd] = useState('');
     const [newInformation, setNewInformation] = useState('');
 
-    const [isBadTime, setIsBadTime] = useState(false);
     const [displayingEvent, setDisplayingEvent] = useState(false);
     const [displayingAddEvent, setDisplayingAddEvent] = useState(false);
     const [displayingError, setDisplayingError] = useState(false);
-    const [displayDeleteVerification, setDisplayDeleteVerification] = useState(false);
+    const [displayingDeleteVerification, setDisplayingDeleteVerification] = useState(false);
+    const [displayingEdit, setDisplayingEdit] = useState(false);
 
     const [errorMessage, setErrorMessage] = useState('');
     const [clickedEvent, setClickedEvent] = useState({});
@@ -168,16 +170,64 @@ function App() {
         setDisplayingAddEvent(false);
     }
 
+    const findEventById = (id) => {
+        let x = 0;
+        while(events[x].id !== id){
+            x++;
+        }
+        return x;
+    }
+
+    const handleEdit = (e) => {
+        e.preventDefault();
+
+        const newEvent = {
+            id: clickedEvent.id,
+            name: newName,
+            startTime: new Date(newStart),
+            endTime: new Date(newEnd),
+            information: newInformation
+        }
+
+        const index = findEventById(clickedEvent.id);
+
+        const newEventList = [...events];
+        newEventList[index] = newEvent;
+        
+        setEvents(newEventList);
+        setDisplayingEvent(false);
+        setDisplayingEdit(false);
+    }
     return (
         <div className = "App">
             {(displayingEvent) ? (
-                <EventInfo
-                    setDisplayingEvent = {setDisplayingEvent}
-                    clickedEvent = {clickedEvent}
-                    handleDelete = {handleDelete}
-                    displayDeleteVerification = {displayDeleteVerification}
-                    setDisplayDeleteVerification = {setDisplayDeleteVerification}
-                />
+                (displayingEdit) ? (
+                    <EditEvent
+                        setDisplayingEdit={setDisplayingEdit}
+                        newName = {newName}
+                        setNewName = {setNewName}
+                        newStart = {newStart}
+                        setNewStart = {setNewStart}
+                        newEnd = {newEnd}
+                        setNewEnd = {setNewEnd}
+                        newInformation = {newInformation}
+                        setNewInformation = {setNewInformation}
+                        handleEdit={handleEdit}
+                    />
+                ) : (
+                    <EventInfo
+                        setDisplayingEvent = {setDisplayingEvent}
+                        clickedEvent = {clickedEvent}
+                        handleDelete = {handleDelete}
+                        displayingDeleteVerification = {displayingDeleteVerification}
+                        setDisplayingDeleteVerification = {setDisplayingDeleteVerification}
+                        setDisplayingEdit = {setDisplayingEdit}
+                        setNewName = {setNewName}
+                        setNewStart = {setNewStart}
+                        setNewEnd = {setNewEnd}
+                        setNewInformation = {setNewInformation}
+                    />
+                )
             ) : (displayingAddEvent)? (
                 <AddEvent
                     newName = {newName}

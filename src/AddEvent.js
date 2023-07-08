@@ -1,5 +1,6 @@
 import { AiOutlineClose } from 'react-icons/ai';
 import ErrorMessage from './ErrorMessage';
+import EventForm from './EventForm';
 
 const AddEvent = ({
     newName, 
@@ -31,39 +32,15 @@ const AddEvent = ({
                     </div>
                     <div id='form-contents'>
                         <form className='addForm' onSubmit = {(e) => handleSubmit(e)}>
-                            <h2>Event Name</h2>
-                            <input
-                                id = 'name'
-                                type = 'text'
-                                placeholder = 'Event Name'
-                                value = {newName}
-                                onChange = {(e) => setNewName(e.target.value)}
-                                className='event-input'
-                            />
-                            <br/>
-                            <h2>Event Start</h2>
-                            <input
-                                id = 'startTime'
-                                type = 'datetime-local'
-                                value = {newStart}
-                                onChange = {(e) => setNewStart(e.target.value)}
-                                className='event-input'
-                            />
-                            <br/>
-                            <h2>Event End</h2>
-                            <input
-                                id = 'endTime'
-                                type = 'datetime-local'
-                                value = {newEnd}
-                                onChange = {(e) => setNewEnd(e.target.value)}
-                                className='event-input'
-                            />
-                            <br/>
-                            <h2> Information </h2>
-                            <textarea
-                                id = 'information'
-                                value = {newInformation}
-                                onChange = {(e) => setNewInformation(e.target.value)}
+                            <EventForm
+                                newName = {newName}
+                                setNewName = {setNewName}
+                                newStart = {newStart}
+                                setNewStart = {setNewStart}
+                                newEnd = {newEnd}
+                                setNewEnd = {setNewEnd}
+                                newInformation = {newInformation}
+                                setNewInformation = {setNewInformation}
                             />
                             <br/>
                             <br/>

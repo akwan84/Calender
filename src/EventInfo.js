@@ -4,7 +4,7 @@ import DeleteVerification from './DeleteVerification';
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete, displayDeleteVerification, setDisplayDeleteVerification }) => {
+const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete, displayingDeleteVerification, setDisplayingDeleteVerification, setDisplayingEdit, setNewName, setNewStart, setNewEnd, setNewInformation }) => {
     const formatTime = (date) => {
         const formatMinutes = () => {
             if(date.getMinutes() < 10){
@@ -30,7 +30,22 @@ const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete, displayDel
 
     const closeWindow = () => {
         setDisplayingEvent(false);
-        setDisplayDeleteVerification(false);
+        setDisplayingDeleteVerification(false);
+    }
+
+    const displayEdit = () => {
+        const start = new Date(clickedEvent.startTime);
+        start.setHours(start.getHours() - (start.getTimezoneOffset() / 60));
+
+        const end = new Date(clickedEvent.endTime);
+        end.setHours(end.getHours() - (end.getTimezoneOffset() / 60));
+
+        setNewName(clickedEvent.name);
+        setNewStart(start.toISOString().slice(0, 16));
+        setNewEnd(end.toISOString().slice(0, 16));
+        setNewInformation(clickedEvent.information);
+
+        setDisplayingEdit(true);
     }
 
     return (
@@ -51,12 +66,12 @@ const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete, displayDel
                     <h2>Information</h2>
                     <p>{clickedEvent.information}</p>
                 </div>
-                <button onClick = {() => setDisplayDeleteVerification(true)} style = {{left: "5%"}} className='event-info-button'>Delete Event</button>
-                <button style = {{left: "55%"}} className='event-info-button'>Edit Event</button>
-                {(displayDeleteVerification) ? (
+                <button onClick = {() => setDisplayingDeleteVerification(true)} style = {{left: "5%"}} className='event-info-button'>Delete Event</button>
+                <button onClick = {() => displayEdit()} style = {{left: "55%"}} className='event-info-button'>Edit Event</button>
+                {(displayingDeleteVerification) ? (
                     <DeleteVerification
                         handleDelete = {handleDelete}
-                        setDisplayDeleteVerification = {setDisplayDeleteVerification}
+                        setDisplayingDeleteVerification = {setDisplayingDeleteVerification}
                     />
                 ) : (
                     <div></div>

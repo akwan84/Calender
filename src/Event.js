@@ -1,4 +1,4 @@
-const Event = ({ id, name, startTime, endTime, information, setDisplayingEvent, clickedEvent, setClickedEvent}) => {
+const Event = ({ id, name, startTime, endTime, information, setDisplayingEvent, clickedEvent, setClickedEvent }) => {
     const getVerticalPosition = () => {
         const minutes = ((startTime.getHours() * 60) + startTime.getMinutes());
         const res = ((minutes / 1440) * 80) + 10.5;
