@@ -1,5 +1,6 @@
 import { AiOutlineClose } from 'react-icons/ai';
 import EventForm from './EventForm';
+import ErrorMessage from './ErrorMessage';
 
 const EditEvent = ({ 
     setDisplayingEdit,
@@ -11,14 +12,22 @@ const EditEvent = ({
     setNewEnd, 
     newInformation, 
     setNewInformation,
-    handleEdit 
+    handleEdit, 
+    displayingError, 
+    setDisplayingError,
+    errorMessage
 }) => {
+
+    const closeWindow = () => {
+        setDisplayingEdit(false);
+        setDisplayingError(false);
+    }
 
     return (
         <div>
             <div className='widget-outer'> </div>
             <div className='widget-inner'> 
-                <div className='exit-button' onClick = {() => setDisplayingEdit(false)}>
+                <div className='exit-button' onClick = {() => closeWindow()}>
                     <AiOutlineClose/>    
                 </div>
                 <div id='form-contents'>
@@ -38,6 +47,15 @@ const EditEvent = ({
                         <button type = 'submit' id='form-submit-button'>Edit Event</button>
                     </form>
                 </div>
+                {
+                    (displayingError ? (
+                        <ErrorMessage
+                            message = {errorMessage}
+                        />
+                    ): (
+                        <div></div>
+                    ))
+                }
             </div>
         </div>
     )

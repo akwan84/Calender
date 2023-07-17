@@ -9,11 +9,12 @@ import EditEvent from './EditEvent';
 /*
 TODO:
 - Make events editable
-    - Set default start and end times properly
+    - Error checking for editing (fix overlapping issue, need to remove the event, check for overlap, and insert the new one if ok)
 - Reposition and style the last week, next week, and add event buttons
 - Display month of the corresponding week
 - Modify the way events display when too widget is too thin
 - Use local storage to store events
+- Add CSS to account for page resizing
 */
 
 function App() {
@@ -21,22 +22,22 @@ function App() {
         {
             id: 1,
             name: "My Event",
-            startTime: new Date('July 3, 2023 16:00:00'),
-            endTime: new Date('July 3, 2023 18:00:00'),
+            startTime: new Date('July 17, 2023 16:00:00'),
+            endTime: new Date('July 17, 2023 18:00:00'),
             information: "Something cool"
         },
         {
             id: 3,
             name: "My Event 3",
-            startTime: new Date('July 9, 2023 12:00:00'),
-            endTime: new Date('July 9, 2023 16:00:00'),
+            startTime: new Date('July 23, 2023 12:00:00'),
+            endTime: new Date('July 23, 2023 16:00:00'),
             information: "Please come"
         },
         {
             id: 2,
             name: "My Event 2",
-            startTime: new Date('July 3, 2023 12:00:00'),
-            endTime: new Date('July 3, 2023 16:00:00'),
+            startTime: new Date('July 17, 2023 12:00:00'),
+            endTime: new Date('July 17, 2023 16:00:00'),
             information: "Something cool's about to happen"
         }
     ]); 
@@ -63,6 +64,10 @@ function App() {
     const [errorMessage, setErrorMessage] = useState('');
     const [clickedEvent, setClickedEvent] = useState({});
     const [weekStart, setWeekStart] = useState(getWeekStart());
+
+    const dateComparator = (a, b) => {
+        return a.startTime - b.startTime;
+    }
 
     const prevWeek = () => {
         let date = new Date(weekStart);
@@ -100,19 +105,17 @@ function App() {
     } 
 
     const sortEvents = () => {
-        const comparator = (a, b) => {
-            return a.startTime - b.startTime;
-        }
         const eventCopy = [...events];
-        return eventCopy.sort(comparator);
+        return eventCopy.sort(dateComparator);
     }
 
     const isOverlapping = () => {
         const start = new Date(newStart);
         const end = new Date(newEnd);
+
         const sortedEvents = sortEvents();
 
-        if(sortedEvents[0].startTime - end > 0 || start - sortedEvents[sortedEvents.length - 1].endTime > 0) return false;
+        if(sortedEvents[0].startTime - end >= 0 || start - sortedEvents[sortedEvents.length - 1].endTime >= 0) return false;
 
         for(let i = 1; i < sortedEvents.length; i++){
             if(start - sortedEvents[i-1].endTime >= 0 && sortedEvents[i].startTime - end >= 0) return false;
@@ -136,17 +139,20 @@ function App() {
         setDisplayingEvent(false);
     }
 
+    const openAddEvent = () => {
+        setNewName('');
+        setNewStart('');
+        setNewEnd('');
+        setNewInformation('');
+
+        setDisplayingAddEvent(true);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if(allFieldsFilled() && !validTime()){
             setErrorMessage("Your event can not end before it starts");
-            setDisplayingError(true);
-            return;
-        }
-
-        if(allFieldsFilled() && isOverlapping()){
-            setErrorMessage("This event overlaps with another");
             setDisplayingError(true);
             return;
         }
@@ -158,6 +164,13 @@ function App() {
         } 
 
         const id = (events.length === 0 ? 1 : (events[events.length - 1].id + 1));
+
+        if(allFieldsFilled() && isOverlapping()){
+            setErrorMessage("This event overlaps with another");
+            setDisplayingError(true);
+            return;
+        }
+
         const newEvent = {
             id: id,
             name: newName,
@@ -167,6 +180,7 @@ function App() {
         }
         const newEventList = [...events, newEvent];
         setEvents(newEventList);
+        setDisplayingError(false);
         setDisplayingAddEvent(false);
     }
 
@@ -181,6 +195,18 @@ function App() {
     const handleEdit = (e) => {
         e.preventDefault();
 
+        if(allFieldsFilled() && !validTime()){
+            setErrorMessage("Your event can not end before it starts");
+            setDisplayingError(true);
+            return;
+        }
+
+        if(!allFieldsFilled()){
+            setErrorMessage("Please fill all fields");
+            setDisplayingError(true);
+            return;
+        }
+
         const newEvent = {
             id: clickedEvent.id,
             name: newName,
@@ -190,14 +216,40 @@ function App() {
         }
 
         const index = findEventById(clickedEvent.id);
+        const oldEvent = events[index];
 
-        const newEventList = [...events];
-        newEventList[index] = newEvent;
-        
-        setEvents(newEventList);
+        const arrCopy = [...events];
+        arrCopy.splice(index, 1);
+
+        const sortedEvents = arrCopy.sort(dateComparator);
+
+        if(sortedEvents[0].startTime - newEvent.endTime >= 0 || newEvent.startTime - sortedEvents[sortedEvents.length - 1].endTime >= 0){
+            addNewEvent(arrCopy, newEvent);
+            return;
+        }
+
+        for(let i = 1; i < sortedEvents.length; i++){
+            if(newEvent.startTime - sortedEvents[i-1].endTime >= 0 && sortedEvents[i].startTime - newEvent.endTime >= 0){
+                addNewEvent(arrCopy, newEvent);
+                return;
+            } 
+        }
+
+        arrCopy.push(oldEvent);
+        setEvents(arrCopy);
+        setErrorMessage("This event overlaps with another");
+        setDisplayingError(true);
+    }
+
+    const addNewEvent = (arr, newEvent) => {
+        arr.push(newEvent);
+        setEvents(arr);
+
         setDisplayingEvent(false);
+        setDisplayingError(false);
         setDisplayingEdit(false);
     }
+
     return (
         <div className = "App">
             {(displayingEvent) ? (
@@ -213,6 +265,9 @@ function App() {
                         newInformation = {newInformation}
                         setNewInformation = {setNewInformation}
                         handleEdit={handleEdit}
+                        displayingError={displayingError}
+                        setDisplayingError={setDisplayingError}
+                        errorMessage={errorMessage}
                     />
                 ) : (
                     <EventInfo
@@ -247,7 +302,7 @@ function App() {
             ) : (
                 <div>
                     <button onClick = {() => prevWeek()} style = {{position: "absolute", left: "12.5%", top: "4vh"}}>Last Week</button>
-                    <button onClick = {() => setDisplayingAddEvent(true)} style = {{position: "absolute", left: "47%", top: "4vh", width: "6%"}}>Add Event</button>
+                    <button onClick = {() => openAddEvent()} style = {{position: "absolute", left: "47%", top: "4vh", width: "6%"}}>Add Event</button>
                     <button onClick = {() => nextWeek()} style = {{position: "absolute", right: "0%", top: "4vh"}}>Next Week</button>
                     <Days
                         weekStart = {weekStart}
