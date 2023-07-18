@@ -8,8 +8,6 @@ import EditEvent from './EditEvent';
 
 /*
 TODO:
-- Make events editable
-    - Error checking for editing (fix overlapping issue, need to remove the event, check for overlap, and insert the new one if ok)
 - Reposition and style the last week, next week, and add event buttons
 - Display month of the corresponding week
 - Modify the way events display when too widget is too thin
@@ -301,9 +299,9 @@ function App() {
                 />
             ) : (
                 <div>
-                    <button onClick = {() => prevWeek()} style = {{position: "absolute", left: "12.5%", top: "4vh"}}>Last Week</button>
-                    <button onClick = {() => openAddEvent()} style = {{position: "absolute", left: "47%", top: "4vh", width: "6%"}}>Add Event</button>
-                    <button onClick = {() => nextWeek()} style = {{position: "absolute", right: "0%", top: "4vh"}}>Next Week</button>
+                    <button onClick = {() => openAddEvent()} style = {{position: "absolute", left: "2%", top: "3vh", width: "6%"}} className = "home-button"><strong>Add Event</strong></button>
+                    <button onClick = {() => prevWeek()} style = {{position: "absolute", left: "12.5%", top: "3vh"}} className = "home-button"><strong>Last Week</strong></button>
+                    <button onClick = {() => nextWeek()} style = {{position: "absolute", right: "0%", top: "3vh"}} className = "home-button"><strong>Next Week</strong></button>
                     <Days
                         weekStart = {weekStart}
                     />

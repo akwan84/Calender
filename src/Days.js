@@ -5,7 +5,7 @@ const Days = ({ weekStart }) => {
     for(let i = 0; i < 7; i++){
         res.push(
             <div style = {{left: `${12.5 * (1 + i)}%`, key: {i}}} className="week-day">
-                {date.getDate()} <br/> {daysOfWeek[i]}
+                <strong>{date.getDate()} <br/> {daysOfWeek[i]}</strong>
             </div>
         );
         date.setDate(date.getDate() + 1);

@@ -41,7 +41,7 @@ const Grid = () => {
                             key = {key++}
                             className="grid-cell"
                         >
-                            {times[i]}
+                            <strong>{times[i]}</strong>
                         </div>
                     );
                 }
@@ -59,7 +59,7 @@ const Grid = () => {
                 fontSize: "1.2vh"}}
                 key = {key++}
             >
-                12:00 AM
+                <strong>12:00 AM</strong>
             </div>
         );
         return elements;
