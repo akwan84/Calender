@@ -162,3 +162,12 @@ code {
   border: 0px;
   box-shadow: 0px 0px 3px black;
 }
+
+#month {
+  width: 25%;
+  position: absolute;
+  left: 37.5%;
+  text-align: center;
+  font-size: 3vh;
+  top: 2vh;
+}

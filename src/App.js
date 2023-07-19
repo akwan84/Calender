@@ -5,14 +5,16 @@ import EventInfo from './EventInfo';
 import Grid from './Grid';
 import Days from './Days';
 import EditEvent from './EditEvent';
+import MonthHeader from './MonthHeader';
 
 /*
 TODO:
-- Reposition and style the last week, next week, and add event buttons
 - Display month of the corresponding week
+    - Create a custom component for it
 - Modify the way events display when too widget is too thin
 - Use local storage to store events
 - Add CSS to account for page resizing
+- Change font in the information box
 */
 
 function App() {
@@ -69,13 +71,11 @@ function App() {
 
     const prevWeek = () => {
         let date = new Date(weekStart);
-        console.log(date);
         setWeekStart(date.setDate(date.getDate() - 7));
     }
 
     const nextWeek = () => {
         let date = new Date(weekStart);
-        console.log(date);
         setWeekStart(date.setDate(date.getDate() + 7));
     }
 
@@ -301,6 +301,7 @@ function App() {
                 <div>
                     <button onClick = {() => openAddEvent()} style = {{position: "absolute", left: "2%", top: "3vh", width: "6%"}} className = "home-button"><strong>Add Event</strong></button>
                     <button onClick = {() => prevWeek()} style = {{position: "absolute", left: "12.5%", top: "3vh"}} className = "home-button"><strong>Last Week</strong></button>
+                    <MonthHeader weekStart = {weekStart}/>
                     <button onClick = {() => nextWeek()} style = {{position: "absolute", right: "0%", top: "3vh"}} className = "home-button"><strong>Next Week</strong></button>
                     <Days
                         weekStart = {weekStart}
