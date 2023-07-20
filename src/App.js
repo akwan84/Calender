@@ -9,12 +9,10 @@ import MonthHeader from './MonthHeader';
 
 /*
 TODO:
-- Display month of the corresponding week
-    - Create a custom component for it
-- Modify the way events display when too widget is too thin
 - Use local storage to store events
 - Add CSS to account for page resizing
 - Change font in the information box
+- Add animations for button click and hover
 */
 
 function App() {

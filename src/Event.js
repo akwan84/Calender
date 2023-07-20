@@ -2,7 +2,6 @@ const Event = ({ id, name, startTime, endTime, information, setDisplayingEvent, 
     const getVerticalPosition = () => {
         const minutes = ((startTime.getHours() * 60) + startTime.getMinutes());
         const res = ((minutes / 1440) * 80) + 10.5;
-
         return `${res}vh`;
     }
 
@@ -32,7 +31,7 @@ const Event = ({ id, name, startTime, endTime, information, setDisplayingEvent, 
 
     return (
         <div className = "event" style = {{top: getVerticalPosition(), left: getHorizontalPosition(), height: getSize()}} onClick={() => handleClick()}>
-            {`${name}`}            
+            {(endTime - startTime >= 3600000) ? (`${name}`) : ''} 
         </div>
     )
 }
