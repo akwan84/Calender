@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Calender from './Calender';
 import AddEvent from './AddEvent';
 import EventInfo from './EventInfo';
@@ -9,36 +9,47 @@ import MonthHeader from './MonthHeader';
 
 /*
 TODO:
-- Use local storage to store events
 - Add CSS to account for page resizing
 - Change font in the information box
 - Add animations for button click and hover
 */
 
 function App() {
-    const [events, setEvents] = useState([
-        {
-            id: 1,
-            name: "My Event",
-            startTime: new Date('July 17, 2023 16:00:00'),
-            endTime: new Date('July 17, 2023 18:00:00'),
-            information: "Something cool"
-        },
-        {
-            id: 3,
-            name: "My Event 3",
-            startTime: new Date('July 23, 2023 12:00:00'),
-            endTime: new Date('July 23, 2023 16:00:00'),
-            information: "Please come"
-        },
-        {
-            id: 2,
-            name: "My Event 2",
-            startTime: new Date('July 17, 2023 12:00:00'),
-            endTime: new Date('July 17, 2023 16:00:00'),
-            information: "Something cool's about to happen"
+    const parseFromStorage = (arr) => {
+        for(let i = 0; i < arr.length; i++){
+            const startTimeStr = arr[i].startTime;
+            const endTimeStr = arr[i].endTime;
+            
+            arr[i].startTime = new Date(startTimeStr);
+            arr[i].endTime = new Date(endTimeStr);
         }
-    ]); 
+        return arr;
+    }
+
+    const initialEvents = JSON.parse(localStorage.getItem('eventList')) || [];
+
+    const [events, setEvents] = useState(parseFromStorage(initialEvents));
+    
+    useEffect(() => {
+        const processForStorage = () => {
+            const result = [];
+            for(let i = 0; i < events.length; i++){
+                const startTimeStr = events[i].startTime.toString();
+                const endTimeStr = events[i].endTime.toString();
+                
+                result.push({
+                    id: events[i].id,
+                    name: events[i].name,
+                    startTime: startTimeStr,
+                    endTime: endTimeStr,
+                    information: events[i].information
+                });
+            }
+            return result;
+        }
+
+        localStorage.setItem('eventList', JSON.stringify(processForStorage()));
+    }, [events]);
 
     const getWeekStart = () => {
         let date = new Date();
@@ -111,7 +122,7 @@ function App() {
 
         const sortedEvents = sortEvents();
 
-        if(sortedEvents[0].startTime - end >= 0 || start - sortedEvents[sortedEvents.length - 1].endTime >= 0) return false;
+        if(sortedEvents.length === 0 || sortedEvents[0].startTime - end >= 0 || start - sortedEvents[sortedEvents.length - 1].endTime >= 0) return false;
 
         for(let i = 1; i < sortedEvents.length; i++){
             if(start - sortedEvents[i-1].endTime >= 0 && sortedEvents[i].startTime - end >= 0) return false;
@@ -127,7 +138,6 @@ function App() {
         const newEvents = [];
         for(let i = 0; i < events.length; i++){
             if(events[i].id !== clickedEvent.id){
-                console.log(events[i]);
                 newEvents.push(events[i]);
             }
         }
@@ -219,7 +229,7 @@ function App() {
 
         const sortedEvents = arrCopy.sort(dateComparator);
 
-        if(sortedEvents[0].startTime - newEvent.endTime >= 0 || newEvent.startTime - sortedEvents[sortedEvents.length - 1].endTime >= 0){
+        if(sortedEvents.length === 0 || sortedEvents[0].startTime - newEvent.endTime >= 0 || newEvent.startTime - sortedEvents[sortedEvents.length - 1].endTime >= 0){
             addNewEvent(arrCopy, newEvent);
             return;
         }
