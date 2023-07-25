@@ -143,6 +143,7 @@ function App() {
         }
         setEvents(newEvents);
         setDisplayingEvent(false);
+        setDisplayingDeleteVerification(false);
     }
 
     const openAddEvent = () => {
