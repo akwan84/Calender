@@ -4,7 +4,18 @@ import DeleteVerification from './DeleteVerification';
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const EventInfo = ({ setDisplayingEvent, clickedEvent , handleDelete, displayingDeleteVerification, setDisplayingDeleteVerification, setDisplayingEdit, setNewName, setNewStart, setNewEnd, setNewInformation }) => {
+const EventInfo = ({ 
+    setDisplayingEvent, 
+    clickedEvent, 
+    handleDelete, 
+    displayingDeleteVerification, 
+    setDisplayingDeleteVerification, 
+    setDisplayingEdit, 
+    setNewName, 
+    setNewStart, 
+    setNewEnd, 
+    setNewInformation 
+}) => {
     const formatTime = (date) => {
         const formatMinutes = () => {
             if(date.getMinutes() < 10){

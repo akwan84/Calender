@@ -1,4 +1,12 @@
-const Event = ({ id, name, startTime, endTime, information, setDisplayingEvent, clickedEvent, setClickedEvent }) => {
+const Event = ({ 
+    id, 
+    name, 
+    startTime, 
+    endTime, 
+    information, 
+    setDisplayingEvent, 
+    setClickedEvent 
+}) => {
     const getVerticalPosition = () => {
         const minutes = ((startTime.getHours() * 60) + startTime.getMinutes());
         const res = ((minutes / 1440) * 80) + 10.5;
@@ -30,7 +38,11 @@ const Event = ({ id, name, startTime, endTime, information, setDisplayingEvent, 
     }
 
     return (
-        <div className = "event" style = {{top: getVerticalPosition(), left: getHorizontalPosition(), height: getSize()}} onClick={() => handleClick()}>
+        <div 
+            className = "event" 
+            style = {{top: getVerticalPosition(), left: getHorizontalPosition(), height: getSize()}} 
+            onClick={() => handleClick()}
+        >
             {(endTime - startTime >= 3600000) ? (`${name}`) : ''} 
         </div>
     )

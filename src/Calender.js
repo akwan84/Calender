@@ -1,6 +1,6 @@
 import Event from './Event'
 
-const Calender = ({ events, setDisplayingEvent, clickedEvent, setClickedEvent }) => {
+const Calender = ({ events, setDisplayingEvent, setClickedEvent }) => {
     return (
         events.map((event) => (
             <Event
@@ -11,7 +11,6 @@ const Calender = ({ events, setDisplayingEvent, clickedEvent, setClickedEvent })
                 endTime = {event.endTime}
                 information = {event.information}
                 setDisplayingEvent = {setDisplayingEvent}
-                clickedEvent = {clickedEvent}
                 setClickedEvent = {setClickedEvent}
             />
         ))

@@ -1,4 +1,13 @@
-const EventForm = ({ newName, setNewName, newStart, setNewStart, newEnd, setNewEnd, newInformation, setNewInformation }) => {
+const EventForm = ({ 
+    newName, 
+    setNewName, 
+    newStart, 
+    setNewStart, 
+    newEnd, 
+    setNewEnd, 
+    newInformation, 
+    setNewInformation 
+}) => {
     return (
         <div>
             <h2>Event Name</h2>

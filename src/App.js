@@ -7,11 +7,6 @@ import Days from './Days';
 import EditEvent from './EditEvent';
 import MonthHeader from './MonthHeader';
 
-/*
-TODO:
-- Add animations for button click and hover
-*/
-
 function App() {
     const parseFromStorage = (arr) => {
         for(let i = 0; i < arr.length; i++){
@@ -120,7 +115,10 @@ function App() {
 
         const sortedEvents = sortEvents();
 
-        if(sortedEvents.length === 0 || sortedEvents[0].startTime - end >= 0 || start - sortedEvents[sortedEvents.length - 1].endTime >= 0) return false;
+        if(sortedEvents.length === 0 || 
+            sortedEvents[0].startTime - end >= 0 || 
+            start - sortedEvents[sortedEvents.length - 1].endTime >= 0
+        ) return false;
 
         for(let i = 1; i < sortedEvents.length; i++){
             if(start - sortedEvents[i-1].endTime >= 0 && sortedEvents[i].startTime - end >= 0) return false;
@@ -228,13 +226,18 @@ function App() {
 
         const sortedEvents = arrCopy.sort(dateComparator);
 
-        if(sortedEvents.length === 0 || sortedEvents[0].startTime - newEvent.endTime >= 0 || newEvent.startTime - sortedEvents[sortedEvents.length - 1].endTime >= 0){
+        if(sortedEvents.length === 0 || 
+            sortedEvents[0].startTime - newEvent.endTime >= 0 || 
+            newEvent.startTime - sortedEvents[sortedEvents.length - 1].endTime >= 0
+        ){
             addNewEvent(arrCopy, newEvent);
             return;
         }
 
         for(let i = 1; i < sortedEvents.length; i++){
-            if(newEvent.startTime - sortedEvents[i-1].endTime >= 0 && sortedEvents[i].startTime - newEvent.endTime >= 0){
+            if(newEvent.startTime - sortedEvents[i-1].endTime >= 0 && 
+                sortedEvents[i].startTime - newEvent.endTime >= 0
+            ){
                 addNewEvent(arrCopy, newEvent);
                 return;
             } 
@@ -306,10 +309,32 @@ function App() {
                 />
             ) : (
                 <div>
-                    <button onClick = {() => openAddEvent()} style = {{position: "absolute", left: "2%", top: "3vh", width: "6%"}} className = "home-button"><strong>Add Event</strong></button>
-                    <button onClick = {() => prevWeek()} style = {{position: "absolute", left: "12.5%", top: "3vh"}} className = "home-button"><strong>Last Week</strong></button>
+                    <button 
+                        onClick = {() => openAddEvent()} 
+                        style = {{position: "absolute", left: "2%", top: "3vh", width: "6%"}} 
+                        className = "home-button"
+                    >
+                        <strong>Add Event</strong>
+                    </button>
+
+                    <button 
+                        onClick = {() => prevWeek()} 
+                        style = {{position: "absolute", left: "12.5%", top: "3vh"}} 
+                        className = "home-button"
+                    >
+                        <strong>Last Week</strong>
+                    </button>
+
                     <MonthHeader weekStart = {weekStart}/>
-                    <button onClick = {() => nextWeek()} style = {{position: "absolute", right: "0%", top: "3vh"}} className = "home-button"><strong>Next Week</strong></button>
+
+                    <button 
+                        onClick = {() => nextWeek()} 
+                        style = {{position: "absolute", right: "0%", top: "3vh"}} 
+                        className = "home-button"
+                    >
+                        <strong>Next Week</strong>
+                    </button>
+                    
                     <Days
                         weekStart = {weekStart}
                     />
@@ -317,7 +342,6 @@ function App() {
                     <Calender 
                         events = {getEventsInWeek()}
                         setDisplayingEvent = {setDisplayingEvent}
-                        clickedEvent = {clickedEvent}
                         setClickedEvent = {setClickedEvent}
                     />
                 </div>
