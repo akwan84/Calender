@@ -9,8 +9,6 @@ import MonthHeader from './MonthHeader';
 
 /*
 TODO:
-- Add CSS to account for page resizing
-- Change font in the information box
 - Add animations for button click and hover
 */
 
